@@ -1,10 +1,12 @@
 import com.example.Feline;
 import com.example.Lion;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
@@ -32,7 +34,10 @@ public class LionTest {
         };
     }
 
-
+    @Before
+    public void setUp(){
+        MockitoAnnotations.initMocks(this);
+    }
     @Test
     public void testLionCheckSex() throws Exception {
         Feline feline = Mockito.mock(Feline.class);
