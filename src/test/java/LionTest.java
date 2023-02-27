@@ -14,38 +14,44 @@ public class LionTest {
     private final String sex;
     private final boolean EXPECTED_DOES_HAVE_MANE;
     private final int KITTENS_VALUE;
+    private final String sexThrow;
 
-    public LionTest(String sex, boolean expectedDoesHaveMane, int kittensValue) {
+    public LionTest(String sex, boolean expectedDoesHaveMane, int kittensValue, String sexThrow) {
         this.sex = sex;
-        EXPECTED_DOES_HAVE_MANE = expectedDoesHaveMane;
-        KITTENS_VALUE = kittensValue;
+        this.EXPECTED_DOES_HAVE_MANE = expectedDoesHaveMane;
+        this.KITTENS_VALUE = kittensValue;
+        this.sexThrow = sexThrow;
+
     }
 
     @Parameterized.Parameters
     public static Object[][] getInput(){
         return new Object[][]{
-                {"Самец", true,1},
-                {"Самка", false,2}
+                {"Самец", true,1,null},
+                {"Самка", false,2,"Нечто"}
         };
     }
+
+
     @Test
     public void testLionCheckSex() throws Exception {
-        Lion lion = new Lion(sex);
+        Feline feline = Mockito.mock(Feline.class);
+        Lion lion = new Lion(sex,feline);
         boolean actual = lion.doesHaveMane();
-        boolean expected = EXPECTED_DOES_HAVE_MANE;
-        Assert.assertEquals("Error testLionMale", expected,actual);
+        Assert.assertEquals("Error testLionMale", EXPECTED_DOES_HAVE_MANE,actual);
     }
-
 
     @Test
     public void testLionCheckThrow() {
+        Feline feline = Mockito.mock(Feline.class);
         Exception exception = null;
         try {
-            Lion lion = new Lion("Нечто");
+            Lion lion = new Lion(sexThrow,feline);
         } catch (Exception ex) {
             exception = ex;
         }
-        String actual = exception.getMessage();
+
+        String actual = exception != null ? exception.getMessage() : null;
         String excepted = "Используйте допустимые значения пола животного - самец или самка";
         Assert.assertEquals(excepted, actual);
     }
@@ -55,9 +61,8 @@ public class LionTest {
         Feline feline = Mockito.mock(Feline.class);
         Lion lion = new Lion (sex,feline);
         Mockito.when(feline.getKittens()).thenReturn(KITTENS_VALUE);
-        int excepted = KITTENS_VALUE;
         int actual = lion.getKittens();
-        Assert.assertEquals("Error getKittens",excepted,actual);
+        Assert.assertEquals("Error getKittens",KITTENS_VALUE,actual);
     }
 
     @Test
