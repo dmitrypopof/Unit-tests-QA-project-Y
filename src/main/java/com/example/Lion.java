@@ -18,7 +18,8 @@ public class Lion {
 
     //Feline feline = new Feline(); переделан
     Feline feline;
-    public Lion (Feline feline){
+    public Lion (boolean hasMane, Feline feline){
+        this.hasMane = hasMane;
         this.feline = feline;
     }
 
