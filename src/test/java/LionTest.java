@@ -53,7 +53,7 @@ public class LionTest {
     @Test
     public void getKittens() throws Exception {
         Feline feline = Mockito.mock(Feline.class);
-        Lion lion = new Lion (true,feline);
+        Lion lion = new Lion (sex,feline);
         Mockito.when(feline.getKittens()).thenReturn(KITTENS_VALUE);
         int excepted = KITTENS_VALUE;
         int actual = lion.getKittens();
@@ -63,7 +63,7 @@ public class LionTest {
     @Test
     public void getFood() throws Exception {
         Feline feline = Mockito.mock(Feline.class);
-        Lion lion = new Lion(true,feline);
+        Lion lion = new Lion(sex,feline);
         Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         List<String> excepted = List.of("Животные", "Птицы", "Рыба");
         List<String> actual = lion.getFood();
