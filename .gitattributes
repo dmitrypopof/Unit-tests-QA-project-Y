@@ -1,1 +1,4 @@
 *.html linguist-language=Java
+*.html linguist-language=HTML
+*.html linguist-language=CSS
+*.html linguist-language=JavaScript
